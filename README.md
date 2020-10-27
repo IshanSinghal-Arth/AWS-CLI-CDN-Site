@@ -12,3 +12,5 @@ The architecture includes-
 
 
 https://www.linkedin.com/pulse/website-infrastructure-purely-using-aws-cli-ec2-s3-github-singhal/
+
+![Concept Diagram](https://github.com/IshanSinghal-Arth/AWS-CLI-CDN-Site/blob/main/Diagram.png)
