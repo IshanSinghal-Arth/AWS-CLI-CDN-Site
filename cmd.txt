@@ -1,0 +1,83 @@
+aws ec2 create-key-pair --key-name MyKeyPair
+"KeyFingerprint": "bf:c2:47:10:e9:20:4b:77:6d:2b:66:06:dd:51:6d:e5:54:3f:13:05",
+    "KeyMaterial": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA7OQZsJdS90KJ00bgcGPktig3tz2wF0NBFomzJxLA9D0K0uQx\nQUUGCHYHiFQ6UE9l6XUjnzrzjO8b+jGxinNhmV1BfqXZGDYz4ivleC7aALWYoTzj\nBMf31clPWutGWjPnukYu2vRlpuD952zcF6ZU/bdI54IGwQQD3IDpxpI0+/gNuV+3\n/UKWbaoG9ve6PbBHCPi2PNj6MqZqW32SakZSVXO4gNqvLSTbeKoWH+Jmq6VDgNy2\nkKp0Q9ZjLvFSm/Z0UhwhhLbYKcJMAKRCcfvSvhe63PclfUAuhGOHZbq306HsxQVF\nPnTWhJC2r3yB5ErFy8OcNv1elBGLnC9CwmUJzwIDAQABAoIBAFaswwWM6KtVqi4m\nsboNosJPhstCA+sPDYKckXNLdlQm/Y3aNndmNOXloa3s+4Uk9+nqlUUOgcxgNIFf\nq1E4FE7UA0G+luc39dXcL9LAeb1mtFjSeVHnhLOxO5rNmOkqMrBCO6SbZZIgomYJ\nu6HflxtZ84/ZUHVQ7cTBWkfwePhzvu6kc1LUAFKYWPbsOCqQs3n4RKn6elh86MG8\n8Mzf36ML8QrxRUNLt3VHrxi3ulpZhYyLz1q5SzZGZl80VyW3APdCQklhS1siGFXG\nhjYTv8fOy2jPCTby1H+0nQMXJX/bFWSxodIoXKT/mqL4eWRaQAcnLimBFQJXnciG\ncHSDeTkCgYEA/e+MRFuPs7itHfMArZNI+hifT5qyBJ4d40JpCUdfq+ADgBuX0LaW\nkinUA9tcsw9y9/optZ35vuj344bQjHAlOt1p1G9lVwz44hsNLTaj1fpUcaClfyFs\nQIVrkAxp5batOh26PjhlbY/FTPbxq4Z3VK7L+0CsmcjqjChxwixWePUCgYEA7tEU\n4qNGfY5dm4aw19UWbejun5ZXzysVapjHeHOi7UYH3IIlqvzvWDYxyPDIEtbcyr2i\nVuqMWLwJHv1eS9LSCgp3wjwmyCKnXOUUR9cg4RueyFD+XbVo5d2lyQoej/8e8K74\nBtK05qFenh+Nz+YQ+WuNGaWqlJuzlASXBrLcjTMCgYEAwjgOc1YIcfAk0ExEz31g\nCpD8gDkUQP3iZCguB//EB8Q9SSVRlzufrEk7tHt5yiZdy5ZVgmhCVScAOdCp/0/i\n2cPxJp7QxqTQUrdX+6XX51ggcAvrqHGaxzqEi1dDQ4PVuCZ2hRJDWWnmALi7HHKr\nIGTU9OWBXdnSssJYR6f7t2UCgYByEW3fXsuBlymA6tG3FbGz58lqcn4YluSQ2M6V\n6u3MVWHV4lgplsyfnqsi5lc6IGSvdep/h2Jn09Cre6u5ncXzQ9K19NM1TtAP399S\n/R9YRkAOQBlvGwIyoS7ZmrrEXsAhiAEyCRyc+EDgWAP9ZE+BQuzPbkDO4JvivFqC\nuZX83wKBgQDIv4YVlm6dWyS8Z8M2FT7+cuPbzGGJi7OPsa/gFUYveqyMJ0iN8JwR\nLzsBKglky7yfqRx1oXKKDuPO2uSEkmkq0H8C8a9XG8SGYLZtLUI5XiXA3T46ZqEI\noTuiPaUTSj1caOoc4vJ66p+cKqMZOEhH4Eo6tegGpJ1PWShmXmzvxA==\n-----END RSA PRIVATE KEY-----",
+    "KeyName": "MyKeyPair",
+    "KeyPairId": "key-02c5a7d3ae5f2ab42"
+}
+
+aws ec2 create-security-group --description "Web Traffic" --group-name cli-web --vpc-id "vpc-ba1fffd1"
+"GroupId": "sg-0c9ef30e5635da51b"
+
+aws ec2 authorize-security-group-ingress --group-name "cli-web" --protocol "tcp" --port 80 --cidr "0.0.0.0/0"
+aws ec2 authorize-security-group-ingress --group-name "cli-web" --protocol "tcp" --port 22 --cidr "0.0.0.0/0"
+
+
+aws s3 mb s3://climysite
+aws s3 cp 0.jpg s3://climysite/0.jpg --acl public-read
+aws s3 website s3://my-bucket/ --index-document index.html
+
+
+aws cloudfront create-distribution --origin-domain-name "climysite.s3-website.ap-south-1.amazonaws.com"
+"DomainName": "d3rezwcuqojx4f.cloudfront.net"
+
+aws cloudfront get-distribution-config --id "E1RCLU7Q7751WD"
+
+USE THIS DOMAIN NAME FOR STATIC FILES
+
+
+aws ec2 run-instances --image-id "ami-0e306788ff2473ccb" --instance-type "t2.micro" --key-name MyKeyPair --security-group-ids "sg-0c9ef30e5635da51b" --subnet-id "subnet-1e3a3376" --count 1 --user-data
+"InstanceId": "i-054a5721bdc9ca1aa"
+
+aws ec2 describe-instances --instance-ids "i-04f5f945ffedc2823"
+
+aws ec2 create-volume --volume-type "gp2" --size 1 --availability-zone "ap-south-1a" --tag-specifications ResourceType=volume,Tags=[{Key=name,Value=cli-vol}]
+"VolumeId": "vol-087066c6e8a54b95d"
+
+aws ec2 attach-volume --instance-id "i-054a5721bdc9ca1aa" --volume-id "vol-087066c6e8a54b95d" --device "/dev/xvdf"
+
+fdisk /dev/xvdf
+mkfs.ext4 /dev/xvdf1
+n
+p
+default
+default
+
+mount /dev/xvdf1 /var/www/html
+
+
+git clone https://github.com/IshanSinghal-Arth/AWS-CLI-CDN-Site-FILES.git /var/www/html/.
+
+
+
+
+
+
+
+
+
+
+aws ec2 detach-volume  --volume-id "vol-087066c6e8a54b95d"
+
+aws ec2 terminate-instances --instance-id "i-054a5721bdc9ca1aa"
+
+aws ec2 delete-volume --volume-id "vol-087066c6e8a54b95d"
+
+aws cloudfront get-distribution-config --id E1RCLU7Q7751WD | jq
+
+aws cloudfront get-distribution-config --id E1RCLU7Q7751WD | jq > update.json
+delete from upper part:
+{
+    "ETag": "ETag_Value",
+    "DistributionConfig":
+	
+delete last } of file
+
+aws cloudfront update-distribution --id E1RCLU7Q7751WD --if-match "E83QMNJIAY1Y4" --distribution-config file://update.json
+aws cloudfront get-distribution-config --id E1RCLU7Q7751WD
+aws cloudfront delete-distribution --id E1RCLU7Q7751WD --if-match "E120WUNH6OW8UV"
+
+
+aws s3 rm s3://climysite/0.jpg
+aws s3 rb s3://climysite --force
+
+aws ec2 delete-key-pair --key-name "MyKeyPair"
