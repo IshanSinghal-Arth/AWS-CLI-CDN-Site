@@ -1,6 +1,8 @@
 # CLI-CDN-Site
 AWS CLI website - key, SG, EC2, S3, CloudFront
 
+## ARTH - Task 6
+
 Create High Availability Architecture with AWS CLI
 
 The architecture includes- 
